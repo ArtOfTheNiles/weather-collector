@@ -55,6 +55,8 @@ For those interested, here are ways that you can contribute to the project:
 
 ## Credits
 
+Initial code provided by edX Boot Camps LLC.
+
 Special thanks to friends and family for supporting this project.
 
 
