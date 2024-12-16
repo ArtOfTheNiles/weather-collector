@@ -55,7 +55,7 @@ For those interested, here are ways that you can contribute to the project:
 
 ## Credits
 
-Initial code provided by edX Boot Camps LLC.
+Initial code provided by edX Boot Camps LLC. See this [Commit](https://github.com/ArtOfTheNiles/weather-collector/commit/4c5873b8326eb0105468da8e069b56fec402dcf3) for details.
 
 Special thanks to friends and family for supporting this project.
 
