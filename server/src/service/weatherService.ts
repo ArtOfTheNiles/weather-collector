@@ -95,7 +95,7 @@ class WeatherService {
     }
   }
 
-  public async getWeatherForCity(cityName: string){
+  public async getWeatherForCity(cityName: string){ //TODO: fix: 'not all code paths return a value'
     try {
       const coords: Coordinates = await this.getCoordinatesByName(cityName);
       if(coords !== this.blank){
@@ -109,7 +109,7 @@ class WeatherService {
     }
   }
 
-  public async getWeatherForZipCode(zip: string){
+  public async getWeatherForZipCode(zip: string){ //TODO: fix: 'not all code paths return a value'
     try {
       const coords: Coordinates = await this.getCoordinatesByZip(zip);
       if(coords !== this.blank){
