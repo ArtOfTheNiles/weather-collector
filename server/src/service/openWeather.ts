@@ -5,6 +5,7 @@
 >>  Temperature in Kelvin and wind speed in meter/sec is used by default, so there is no need to use the units parameter in the API call if you want this
 */
 
+// #region ==== Interfaces ====
 interface OwmWeather {
     // This is a common pattern in the OpenWeatherMap API
     id: number; // Condition codes, see: https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
@@ -82,6 +83,9 @@ interface Alerts {
     description: string;
     tags: string;
 }
+
+// #endregion
+
 
 export class weather {
     lat: number;
