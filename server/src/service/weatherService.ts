@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import weather from './openWeather.js';
+import Weather, { weatherError } from './openWeather.js';
 
 interface Coordinates {
   lat: number;
@@ -32,10 +32,10 @@ class WeatherService {
         `${this.baseURL}/data/3.0/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=${this.excludes.join(',')}&appid=${this.apiKey}`
       )
       const inputWeather = await response.json();
-      return inputWeather as weather;
+      return inputWeather as Weather;
     } catch (error) {
       console.error(error);
-      return error as weather;
+      return error as Weather;
     }
   }
 
@@ -95,31 +95,31 @@ class WeatherService {
     }
   }
 
-  public async getWeatherForCity(cityName: string){ //TODO: fix: 'not all code paths return a value'
+  public async getWeatherForCity(cityName: string):Promise<Weather>{
     try {
+      let wReport: Weather = weatherError;
       const coords: Coordinates = await this.getCoordinatesByName(cityName);
       if(coords !== this.blank){
-        const wReport: weather = await this.getWeather(coords);
-        return wReport;
+        wReport = await this.getWeather(coords);
       }
-
+      return wReport;
     } catch (error) {
       console.error(error);
-      return null;
+      return weatherError;
     }
   }
 
-  public async getWeatherForZipCode(zip: string){ //TODO: fix: 'not all code paths return a value'
+  public async getWeatherForZipCode(zip: string):Promise<Weather>{
     try {
+      let wReport: Weather = weatherError;
       const coords: Coordinates = await this.getCoordinatesByZip(zip);
       if(coords !== this.blank){
-        const wReport: weather = await this.getWeather(coords);
-        return wReport;
+        wReport = await this.getWeather(coords);
       }
-
+      return wReport;
     } catch (error) {
       console.error(error);
-      return null;
+      return weatherError;
     }
   }
 

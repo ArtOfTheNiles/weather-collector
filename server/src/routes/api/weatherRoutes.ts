@@ -4,10 +4,14 @@ import WeatherService from '../../service/weatherService.js';
 
 const router = Router();
 
-router.post('/:city', async (_req: Request, res: Response) => {
+// ERROR: Cannot POST /api/weather/
+
+// 📍 You Are Here: /api/weather/(params)
+router.post('/:cityName', async (req: Request, res: Response) => {
   try {
-    historyService.addCity(_req.params.city);
-    const cityWeather = await WeatherService.getWeatherForCity(_req.params.city);
+    console.log(`Made a POST in weather routes! Trying to get weather for ${req.params.cityName}`);
+    historyService.addCity(req.params.cityName);
+    const cityWeather = await WeatherService.getWeatherForCity(req.params.cityName);
     res.json(cityWeather);
   } catch (error) {
     console.log(error);
@@ -15,7 +19,7 @@ router.post('/:city', async (_req: Request, res: Response) => {
   }
 });
 
-
+// 📍 You Are Here: /api/weather/history
 router.get('/history', async (_req: Request, res: Response) => {
   try {
     const savedCities = await historyService.getCities();
@@ -26,7 +30,7 @@ router.get('/history', async (_req: Request, res: Response) => {
   }
 });
 
-
+// 📍 You Are Here: /api/weather/history/(params)
 router.delete('/history/:id', async (req: Request, res: Response) => {
   try {
     if(!req.params.id){

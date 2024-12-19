@@ -87,7 +87,7 @@ interface Alerts {
 // #endregion
 
 
-export class weather {
+export class Weather {
     lat: number;
     lon: number;
     timezone: string;
@@ -120,4 +120,11 @@ export class weather {
     }
 }
 
-export default weather;
+export const weatherError: Weather = {
+    lat: 0,
+    lon: 0,
+    timezone: 'ERR',
+    timezone_offset: 0,
+}
+
+export default Weather;

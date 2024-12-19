@@ -1,7 +1,11 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import fs from 'node:fs/promises';
 import { v4 as uuidv4 } from 'uuid';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const dbLocation = '../../db/db.json';
+const dbLocation = path.join(__dirname, './../../../server/db/db.json');
 
 class City {
   name: string;
@@ -34,6 +38,7 @@ class HistoryService {
         try {
           parsedData = [].concat(JSON.parse(data));
         } catch (error) {
+          console.trace('Error in GetCities() function!');
           parsedData = [];
         }
 
