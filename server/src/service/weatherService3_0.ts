@@ -8,10 +8,17 @@ interface Coordinates {
   lon: number;
 }
 
-// Based on the Free OpenWeather API 2.5 (https://openweathermap.org/current) (no way that link doesn't break: 1-27-25)
+// Based on the OpenWeather API 3.0 (https://openweathermap.org/api/one-call-3)
 class WeatherService {
   private baseURL?: string;
   private apiKey?: string;
+  private excludes = [
+    // 'current',
+    'minutely',
+    // 'hourly',
+    // 'daily',
+    'alerts'
+  ]
   constructor (){
     this.baseURL = process.env.API_BASE_URL || '';
     this.apiKey = process.env.API_KEY || '';
@@ -22,7 +29,7 @@ class WeatherService {
   private async getWeather(coord: Coordinates){
     try {
       const response = await fetch(
-        `${this.baseURL}/data/2.5/weather?lat=${coord.lat}&lon=${coord.lon}&appid=${this.apiKey}`
+        `${this.baseURL}/data/3.0/onecall?lat=${coord.lat}&lon=${coord.lon}&exclude=${this.excludes.join(',')}&appid=${this.apiKey}`
       )
       const inputWeather = await response.json();
       return inputWeather as Weather;

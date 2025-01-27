@@ -34,13 +34,13 @@ API Calls
 
 */
 
+// ERROR: Cannot POST /api/weather/??
 const fetchWeather = async (cityName: string) => {
-  const response = await fetch('/api/weather/', {
+  const response = await fetch(`/api/weather/${cityName}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
     },
-    body: JSON.stringify({ cityName }),
   });
 
   const weatherData = await response.json();

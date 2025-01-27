@@ -34,14 +34,11 @@ class HistoryService {
     return await this.read()
       .then((data) =>{
         let parsedData: City[];
-
         try {
           parsedData = [].concat(JSON.parse(data));
         } catch (error) {
-          console.trace('Error in GetCities() function!');
           parsedData = [];
         }
-
         return parsedData;
       });
   }
@@ -50,9 +47,7 @@ class HistoryService {
     if(!inputCity) {
       throw new Error('Input required!');
     }
-
     const newCity: City = { name: inputCity, id: uuidv4() };
-
     return await this.getCities()
       .then((cities) => {
         if(cities.find((i) => i.name === inputCity)){
