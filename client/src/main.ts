@@ -45,10 +45,10 @@ const fetchWeather = async (cityName: string) => {
 
   const weatherData = await response.json();
 
-  console.log('weatherData: ', weatherData);
+  // console.log('weatherData: ', weatherData);
 
-  renderCurrentWeather(weatherData[0]);
-  renderForecast(weatherData.slice(1));
+  renderCurrentWeather(weatherData.city.name, weatherData.list[0]);
+  renderForecast(weatherData.list.slice(1));
 };
 
 const fetchSearchHistory = async () => {
@@ -76,9 +76,55 @@ Render Functions
 
 */
 
-const renderCurrentWeather = (currentWeather: any): void => {
-  const { city, date, icon, iconDescription, tempF, windSpeed, humidity } =
-    currentWeather;
+// See: https://openweathermap.org/forecast5
+interface Forecast {
+  dt: number,
+  main: {
+    temp: number,
+    feels_like: number,
+    temp_min: number,
+    temp_max: number,
+    pressure: number,
+    sea_level: number,
+    grnd_level: number,
+    humidity: number,
+    temp_kf: number
+  },
+  weather: [
+    {
+      id: number,
+      main: string,
+      description: string,
+      icon: string
+    }
+  ],
+  clouds: {
+    all: number
+  },
+  wind: {
+    speed: number,
+    deg: number,
+    gust: number
+  },
+  visibility: number,
+  pop: number,
+  rain: {
+    '3h': number
+  },
+  sys: {
+    pod: string
+  },
+  dt_txt: string
+}
+
+const renderCurrentWeather = (name: string, currentForecast: Forecast): void => {
+  const city = name;
+  const date = new Date(currentForecast.dt * 1000).toLocaleDateString();
+  const icon = currentForecast.weather[0].icon;
+  const iconDescription = currentForecast.weather[0].description;
+  const tempF = currentForecast.main.temp.toFixed(1);
+  const windSpeed = currentForecast.wind.speed.toFixed(1);
+  const humidity = currentForecast.main.humidity;
 
   // convert the following to typescript
   heading.textContent = `${city} (${date})`;
@@ -111,17 +157,22 @@ const renderForecast = (forecast: any): void => {
     forecastContainer.innerHTML = '';
     forecastContainer.append(headingCol);
   }
-
-  for (let i = 0; i < forecast.length; i++) {
-    renderForecastCard(forecast[i]);
+  // Loop through the forecast but skip the first element since it is the current weather
+  for (let i = 1; i < forecast.length; i++) {
+      renderForecastCard(forecast[i]);
   }
 };
 
-const renderForecastCard = (forecast: any) => {
-  const { date, icon, iconDescription, tempF, windSpeed, humidity } = forecast;
+const renderForecastCard = (forecast: any, colSize: string = "auto") => {
+  const date = new Date(forecast.dt * 1000).toLocaleDateString();
+  const icon = forecast.weather[0].icon;
+  const iconDescription = forecast.weather[0].description;
+  const tempF = forecast.main.temp.toFixed(1);
+  const windSpeed = forecast.wind.speed.toFixed(1);
+  const humidity = forecast.main.humidity;
 
   const { col, cardTitle, weatherIcon, tempEl, windEl, humidityEl } =
-    createForecastCard();
+    createForecastCard(colSize);
 
   // Add content to elements
   cardTitle.textContent = date;
@@ -164,7 +215,7 @@ Helper Functions
 
 */
 
-const createForecastCard = () => {
+const createForecastCard = (colSize: string = "auto") => {
   const col = document.createElement('div');
   const card = document.createElement('div');
   const cardBody = document.createElement('div');
@@ -178,7 +229,7 @@ const createForecastCard = () => {
   card.append(cardBody);
   cardBody.append(cardTitle, weatherIcon, tempEl, windEl, humidityEl);
 
-  col.classList.add('col-auto');
+  col.classList.add(`col-${colSize}`);
   card.classList.add(
     'forecast-card',
     'card',

@@ -2,5 +2,13 @@
 	{
 		"name": "Detroit",
 		"id": "05efac91-b3a3-4f5a-a1cd-748d2b4e96a0"
+	},
+	{
+		"name": "Ottawa",
+		"id": "0448e7b0-0840-4a59-bbc9-6e354c166211"
+	},
+	{
+		"name": "Athens",
+		"id": "7afbfd11-7257-4490-a3e7-c670f7d1365a"
 	}
 ]
