@@ -36,7 +36,7 @@ class WeatherService {
   private async getForecast(coord: Coordinates):Promise<ForecastContainer> {
     try {
       const response = await fetch(
-        `${this.baseURL}/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&units=imperial&appid=${this.apiKey}`
+        `${this.baseURL}/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&cnt=41&units=imperial&appid=${this.apiKey}`
       )
       const inputWeather = await response.json();
       return inputWeather as ForecastContainer;

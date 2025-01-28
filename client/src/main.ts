@@ -158,8 +158,10 @@ const renderForecast = (forecast: any): void => {
     forecastContainer.append(headingCol);
   }
   // Loop through the forecast but skip the first element since it is the current weather
-  for (let i = 1; i < forecast.length; i++) {
-      renderForecastCard(forecast[i]);
+  for (let i = 0; i < forecast.length; i++) {
+    if (i === 0 || i % 8 === 0) {
+      renderForecastCard(forecast[i+1]);
+    }
   }
 };
 
