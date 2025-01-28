@@ -18,7 +18,7 @@ This app collects weather forecast data from the OpenWeather API to provide a 5 
 
 ## Installation
 
-* This app can be run in a modern browser at the following [URL](https://).
+* This app can be run in a modern browser at the following [URL](https://weather-collector.onrender.com).
 
 
 
@@ -26,9 +26,7 @@ This app collects weather forecast data from the OpenWeather API to provide a 5 
 
 ## Usage
 
-Refer to the following video for instructions on how to use the program:
-
-`Coming Soon!`
+Enter a city and receive the current weather and a five-day forecast for that location.
 
 
 
